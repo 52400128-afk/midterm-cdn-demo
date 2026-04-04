@@ -1,6 +1,6 @@
 // ========== CẤU HÌNH 2 URL THẬT ===========
 const BASE_NO_CDN = "https://52400128-afk.github.io/midterm-cdn-demo"; // GitHub Pages trực tiếp
-const BASE_CDN = "https://midterm-cdn-demo.52400128.workers.dev"; // Cloudflare Workers domain
+const BASE_CDN = "https://cdn-demo.52400128.workers.dev"; // Cloudflare Workers domain
 
 const images = [
   { name: "Ảnh 1", src: "large-photo-1.jpg", size: "4.4MB" },
