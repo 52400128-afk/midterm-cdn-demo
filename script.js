@@ -61,7 +61,7 @@ function getBarWidth(ms) {
 
 function getImageUrl(image) {
   const base = state.cdnEnabled ? BASE_CDN : BASE_NO_CDN;
-  return `${base}/images/${image.src}?nocache=${Date.now()}`;
+  return `${base}/images/${image.src}`;
 }
 
 async function measureImage(image) {
