@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Midterm CDN Speed Test</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>Test Tốc Độ CDN</h1>
+      <p>Trang demo đo sự khác biệt giữa chế độ <strong>CDN bật</strong> và <strong>CDN tắt</strong> khi tải ảnh lớn.</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <section class="section control-panel">
+      <div class="status-row">
+        <div>
+          <p class="label">Trạng thái CDN</p>
+          <div id="cdnStatus" class="status-pill status-off">Tắt</div>
+        </div>
+        <button id="toggleButton" class="action-button">Bật CDN</button>
+      </div>
+      <p class="section-note">Nút dưới đây để mô phỏng tốc độ tải ảnh khi dùng CDN. Đây chỉ là demo nội bộ; kiểm tra thực tế phải deploy GitHub Pages và chạy qua Cloudflare, sau đó xem header `CF-Cache-Status`.</p>
+    </section>
+
+    <section class="section metrics-section">
+      <div class="section-header">
+        <h2>Thời gian tải ảnh</h2>
+        <button id="runTestButton" class="action-button secondary">Chạy kiểm tra</button>
+      </div>
+      <div id="metricsGrid" class="metrics-grid"></div>
+      <div class="note">
+        <strong>Lưu ý:</strong> Trang này là demo đo tốc độ. Giá trị CDN là biểu diễn so sánh nhanh/chậm giữa hai trạng thái.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Midterm CDN Demo • Chỉ dùng để kiểm tra tốc độ trước/sau khi bật CDN.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
