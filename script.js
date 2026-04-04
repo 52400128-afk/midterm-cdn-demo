@@ -67,7 +67,7 @@ function getImageUrl(image) {
 async function measureImage(image) {
   const url = getImageUrl(image);
   const start = performance.now();
-  const response = await fetch(url, { cache: "no-store" });
+  const response = await fetch(url);
   await response.blob();
   const end = performance.now();
   return { time: end - start, headers: response.headers, url };
