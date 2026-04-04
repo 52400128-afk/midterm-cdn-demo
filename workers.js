@@ -1,6 +1,5 @@
 export default {
   async fetch(request) {
-    // CORS preflight
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: {
@@ -18,7 +17,6 @@ export default {
       url.pathname +
       url.search;
 
-    // 🔥 Bật cache CDN thật
     const response = await fetch(githubUrl, {
       cf: {
         cacheEverything: true,
@@ -27,8 +25,13 @@ export default {
     });
 
     const newHeaders = new Headers(response.headers);
+
     newHeaders.set("Access-Control-Allow-Origin", "*");
     newHeaders.set("Access-Control-Allow-Methods", "GET, OPTIONS");
+
+    // 🔥 QUAN TRỌNG NHẤT (FIX LỖI CỦA BẠN)
+    newHeaders.set("Access-Control-Expose-Headers", "*");
+
     newHeaders.set("Cache-Control", "public, max-age=3600");
 
     return new Response(response.body, {
