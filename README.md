@@ -8,7 +8,7 @@ Trang web tĩnh này được chuẩn bị để demo nội dung CDN và cache h
 - `script.js` đo thời gian tải ảnh và hiển thị kết quả.
 - `README.md` chứa hướng dẫn kiểm tra thực tế với GitHub Pages và Cloudflare.
 
-> Lưu ý: trang này hiện tại chỉ mô phỏng so sánh nhanh/chậm giữa hai trạng thái. Để đúng bài tập CDN, bạn cần deploy lên GitHub Pages và thực hiện kiểm tra thật sự với Cloudflare, quan sát header `CF-Cache-Status`.
+> Lưu ý: hiện tại `script.js` đã hỗ trợ so sánh hai URL thật. Bạn cần đổi `BASE_NO_CDN` và `BASE_CDN` trong `script.js` thành URL GitHub Pages và Cloudflare thật để so sánh hiệu suất trước/sau đúng yêu cầu.
 
 ## Cấu trúc file
 
@@ -58,6 +58,23 @@ Trang web tĩnh này được chuẩn bị để demo nội dung CDN và cache h
 4. Chọn **Branch**: `main` và folder `/ (root)`.
 5. Nhấn **Save**.
 6. Chờ vài phút, URL sẽ xuất hiện: `https://YOUR_USERNAME.github.io/midterm-cdn-demo/`.
+
+### Bước 4: Cập nhật URL thật trong `script.js`
+
+1. Mở file `script.js`.
+2. Thay `BASE_NO_CDN` bằng URL GitHub Pages thật của bạn, ví dụ:
+
+   ```js
+   const BASE_NO_CDN = "https://YOUR_USERNAME.github.io/midterm-cdn-demo";
+   ```
+
+3. Thay `BASE_CDN` bằng tên miền Cloudflare proxy thật của bạn, ví dụ:
+
+   ```js
+   const BASE_CDN = "https://your-cloudflare-domain.com";
+   ```
+
+> Quan trọng: nếu không thay 2 URL này, tính năng bật/tắt CDN sẽ chưa so sánh được dữ liệu thật.
 
 ## Hướng dẫn kiểm tra thực tế
 

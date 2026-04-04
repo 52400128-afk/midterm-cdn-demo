@@ -1,7 +1,11 @@
+// ========== CẤU HÌNH 2 URL THẬT ===========
+const BASE_NO_CDN = "https://52400128-afk.github.io/midterm-cdn-demo"; // GitHub Pages trực tiếp
+const BASE_CDN = "https://your-cloudflare-domain.com"; // Cloudflare proxy domain - thay bằng domain bạn đã cấu hình
+
 const images = [
-  { name: "Ảnh 1", src: "images/large-photo-1.jpg", size: "4.4MB" },
-  { name: "Ảnh 2", src: "images/large-photo-2.jpg", size: "3.8MB" },
-  { name: "Ảnh 3", src: "images/large-photo-3.jpg", size: "5.0MB" },
+  { name: "Ảnh 1", src: "large-photo-1.jpg", size: "4.4MB" },
+  { name: "Ảnh 2", src: "large-photo-2.jpg", size: "3.8MB" },
+  { name: "Ảnh 3", src: "large-photo-3.jpg", size: "5.0MB" },
 ];
 
 const state = {
@@ -55,26 +59,24 @@ function getBarWidth(ms) {
   return Math.max(8, Math.min(100, width));
 }
 
-function simulateCdnTime(actualMs) {
-  if (!state.cdnEnabled) return actualMs;
-  const reduced = actualMs * 0.35;
-  return Math.max(15, reduced);
+function getImageUrl(image) {
+  const base = state.cdnEnabled ? BASE_CDN : BASE_NO_CDN;
+  return `${base}/images/${image.src}?nocache=${Date.now()}`;
 }
 
 async function measureImage(image) {
-  const url = image.src;
+  const url = getImageUrl(image);
   const start = performance.now();
-  const response = await fetch(url, { cache: "reload" });
+  const response = await fetch(url, { cache: "no-store" });
   await response.blob();
   const end = performance.now();
-  return { time: end - start, headers: response.headers };
+  return { time: end - start, headers: response.headers, url };
 }
 
 function updateCard(card, result) {
   const actualMs = result.time;
-  const displayMs = simulateCdnTime(actualMs);
-  const barWidth = getBarWidth(displayMs);
-  card.querySelector(".metric-time").textContent = formatTime(displayMs);
+  const barWidth = getBarWidth(actualMs);
+  card.querySelector(".metric-time").textContent = formatTime(actualMs);
   card.querySelector(".metric-bar-inner").style.width = `${barWidth}%`;
   const cacheStatus = result.headers.get('cf-cache-status') || 'N/A';
   card.querySelector(
@@ -103,6 +105,7 @@ async function runTest() {
     } catch (error) {
       card.querySelector(".metric-time").textContent = "Lỗi tải";
       card.querySelector(".metric-row").innerHTML = `<span class="card-mode">${state.cdnEnabled ? "CDN bật" : "CDN tắt"}</span><span class="metric-detail">Không tải được: ${error.message}</span>`;
+      console.error("Fetch error for image:", error, image, getImageUrl(image));
     }
   }
 
