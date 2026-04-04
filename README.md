@@ -65,14 +65,18 @@ Trang web tĩnh này được chuẩn bị để demo nội dung CDN và cache h
 2. Thay `BASE_NO_CDN` bằng URL GitHub Pages thật của bạn, ví dụ:
 
    ```js
-   const BASE_NO_CDN = "https://YOUR_USERNAME.github.io/midterm-cdn-demo";
+   const BASE_NO_CDN = "https://52400128-afk.github.io/midterm-cdn-demo";
    ```
 
-3. Thay `BASE_CDN` bằng tên miền Cloudflare proxy thật của bạn, ví dụ:
+3. Thay `BASE_CDN` bằng tên miền Cloudflare Pages thật của bạn, ví dụ:
 
    ```js
-   const BASE_CDN = "https://your-cloudflare-domain.com";
+   const BASE_CDN = "https://midterm-demo.pages.dev";
    ```
+
+> Bạn không cần mua domain. Cloudflare Pages cung cấp subdomain miễn phí `*.pages.dev`, đủ để chứng minh:
+> - không CDN → GitHub Pages
+> - có CDN → Cloudflare Pages
 
 > Quan trọng: nếu không thay 2 URL này, tính năng bật/tắt CDN sẽ chưa so sánh được dữ liệu thật.
 
