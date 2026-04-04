@@ -1,6 +1,6 @@
 export default {
   async fetch(request) {
-    // Xử lý CORS preflight
+    // CORS preflight
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: {
@@ -12,13 +12,28 @@ export default {
     }
 
     const url = new URL(request.url);
-    const githubUrl = `https://52400128-afk.github.io/midterm-cdn-demo${url.pathname}${url.search}`;
-    
-    const response = await fetch(githubUrl);
-    const newResponse = new Response(response.body, response);
-    newResponse.headers.set("Access-Control-Allow-Origin", "*");
-    newResponse.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
-    newResponse.headers.set("Cache-Control", "public, max-age=3600");
-    return newResponse;
-  }
+
+    const githubUrl =
+      "https://52400128-afk.github.io/midterm-cdn-demo" +
+      url.pathname +
+      url.search;
+
+    // 🔥 Bật cache CDN thật
+    const response = await fetch(githubUrl, {
+      cf: {
+        cacheEverything: true,
+        cacheTtl: 3600,
+      },
+    });
+
+    const newHeaders = new Headers(response.headers);
+    newHeaders.set("Access-Control-Allow-Origin", "*");
+    newHeaders.set("Access-Control-Allow-Methods", "GET, OPTIONS");
+    newHeaders.set("Cache-Control", "public, max-age=3600");
+
+    return new Response(response.body, {
+      status: response.status,
+      headers: newHeaders,
+    });
+  },
 };
