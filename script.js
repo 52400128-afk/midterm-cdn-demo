@@ -3,7 +3,7 @@ const BASE_NO_CDN = "https://52400128-afk.github.io/midterm-cdn-demo"; // GitHub
 const BASE_CDN = "https://cdn-demo.52400128.workers.dev"; // Cloudflare Workers domain
 
 const images = [
-  { name: "Ảnh 1", src: "large-photo-1.jpg", size: "4.4MB" },
+  { name: "Ảnh 1", src: "large-photo-1.jpg?v=2", size: "4.4MB" },
   { name: "Ảnh 2", src: "large-photo-2.jpg", size: "3.8MB" },
   { name: "Ảnh 3", src: "large-photo-3.jpg", size: "5.0MB" },
 ];
